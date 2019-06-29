@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    berlioz_managed: "true"
+    cluster: hello
+    deployment: gprod
+    endpoint: web
+    name: gprod-hello-web
+  name: gprod-hello-web
+  namespace: hello
+  resourceVersion: "1456339"
+  selfLink: /api/v1/namespaces/hello/services/gprod-hello-web
+  uid: b1a45982-9ab3-11e9-b941-42010a8a0223
+spec:
+  clusterIP: 10.0.1.80
+  externalTrafficPolicy: Cluster
+  ports:
+  - nodePort: 30091
+    port: 80
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    name: gprod-hello-main-web
+  sessionAffinity: None
+  type: LoadBalancer

@@ -1,0 +1,36 @@
+cloud {
+node "Cluster: hello" as CL_cluster_hello {
+frame "Sector: main" as SEC_sector_hello_main {
+package "Service: app" as SVC_service_hello_main_app #LightBlue {
+actor :Consumes: as SVCAGENT_service_hello_main_app
+component "default\n===\nPort: 5000\nhttp" as PROV_service_hello_main_app_default
+SVCAGENT_service_hello_main_app -[hidden]-> PROV_service_hello_main_app_default
+}
+package "Service: bill" as SVC_service_hello_main_bill #LightBlue {
+actor :Consumes: as SVCAGENT_service_hello_main_bill
+component "default\n===\nPort: 8080\nhttp" as PROV_service_hello_main_bill_default
+SVCAGENT_service_hello_main_bill -[hidden]-> PROV_service_hello_main_bill_default
+}
+package "Service: web" as SVC_service_hello_main_web #LightBlue {
+actor :Consumes: as SVCAGENT_service_hello_main_web
+component "default\n===\nPort: 3000\nhttp" as PROV_service_hello_main_web_default
+SVCAGENT_service_hello_main_web -[hidden]-> PROV_service_hello_main_web_default
+}
+}
+boundary "web" as CI_cluster_hello_web #red
+PROV_service_hello_main_web_default .. CI_cluster_hello_web #RoyalBlue
+}
+}
+actor :Public User: as EX_Consumer
+
+
+cloud {
+component "Address:10.20.30.40\nPort: 3000\nhttp" as External_Server
+}
+
+
+
+EX_Consumer --> CI_cluster_hello_web #Crimson
+SVCAGENT_service_hello_main_app --> PROV_service_hello_main_bill_default #LightCoral
+SVCAGENT_service_hello_main_web --> PROV_service_hello_main_app_default #LightCoral
+SVCAGENT_service_hello_main_bill --> External_Server
