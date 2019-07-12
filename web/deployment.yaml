@@ -10,7 +10,6 @@ metadata:
     service: web
   name: gext-hello-main-web
   namespace: hello
-  resourceVersion: "783347"
   selfLink: /apis/extensions/v1beta1/namespaces/hello/deployments/gext-hello-main-web
   uid: bbaaa701-9c38-11e9-93d8-42010a8a00a5
 spec:
